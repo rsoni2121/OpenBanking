@@ -1,0 +1,336 @@
+FORMAT: 1A
+HOST: http://www.openbanking.org.uk/
+
+# Open Banking 
+
+Open Banking Accounts, Transactions and Beneficiars Details
+
+Version Control     Version 3.1 final release.
+
+An AISP may retrieve the account beneficiaries information resource for a specific AccountId 
+
+
+
+##  Accounts [/accounts]
+
+Endpoints for accounts resource - and available methods.
+ 
+            
+### Get Accounts [GET /]
+
+The API provides an AISP with the list of accounts of the PSU that he/she has authorized the AISP to access.
+
+ 
+
++ Request (application/json)
+        
++ Response 200 (application/json)
+
+    + Headers
+
+            x-fapi-interaction-id: 005W88aBBHsD8hO_MhO5ye00067E0005Gj
+
+   + Body
+
+            {
+            "Data": {
+            "Account": [
+                  {
+                    "AccountId": "46735151",
+                    "Currency": "GBP",
+                    "AccountType": "Savings Account - Regular",
+                    "AccountSubType": "CSA",
+                    "Nickname": "Savings Account - Regular"
+                  },
+                  {
+                    "AccountId": "767576576434",
+                    "Currency": "GBP",
+                    "AccountType": "Savings Account - Regular",
+                    "AccountSubType": "CSA",
+                    "Nickname": "Savings Account - Regular"
+                  }
+                ]
+              },
+              "Links": {
+                "Self": "https://api.zigbank.com/open-banking/v3.1/aisp/accounts/"
+              },
+              "Meta": {
+                "TotalPages": 1
+              }
+            }
+
+
+
+### Details of specific Account [GET /{AccountId}]
+
+  The API provides an AISP with the details of a specific account of the PSU.
+  
++ Parameters
+    + AccountId (string, required) - The Account unique identifier
+    
+      
+ 
++ Request (application/json)
+        
++ Response 200 (application/json)
+
+    + Headers
+
+            x-fapi-interaction-id: 005W89EeCC7D8hO_MhO5ye00067E0004Dk
+        
+    + Body
+
+            {
+              "Data": {
+                "Account": [
+                  {
+                    "AccountId": "54254553443",
+                    "Currency": "GBP",
+                    "AccountType": "Savings Account - Regular",
+                    "AccountSubType": "CSA",
+                    "Nickname": "Savings Account - Regular",
+                    "Account": {
+                      "SchemeName": "UK.OBIE.SortCodeAccountNumber",
+                      "Identification": "AT30008020014",
+                      "Name": "Rakesh Soni",
+                      "SecondaryIdentification": "221122"
+                    }
+                  }
+                ]
+              },
+              "Links": {
+                "Self": "https://api.zigbank.com/open-banking/v3.1/aisp/accounts/54254553443"
+              },
+              "Meta": {
+                "TotalPages": 1
+              }
+            }
+            
+            
+
+
+##  Balances [/balances]
+
+### Account - Balances [GET /{AccountId}/balances]
+
+      The API provides an AISP with the account balance information of a specific account of the PSU.
+
+  
++ Parameters
+    + AccountId (string, required) - The Account unique identifier
+    
+  
+
++ Request (application/json)
+        
++ Response 200 (application/json)
+
+    + Headers
+
+            x-fapi-interaction-id: 005W89EeCC7D8hO_MhO5ye4362873JkkiTPP
+        
+    + Body
+
+            {       
+              "Data": {
+                "Balance": [
+                  {
+                    "AccountId": "54254553443",
+                    "Amount": {
+                      "Amount": "200000.00",
+                      "Currency": "GBP"
+                    },
+                    "CreditDebitIndicator": "Credit",
+                    "Type": "InterimAvailable",
+                    "DateTime": "2019-03-01T19:00:00",
+                    "CreditLine": [
+                      {
+                        "Included": true,
+                        "Amount": {
+                          "Amount": "1000.00",
+                          "Currency": "GBP"
+                        },
+                        "Type": "Pre-Agreed"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "Links": {
+                "Self": "https://api.zigbank.com/open-banking/v3.1/aisp/accounts/54254553443/balances/"
+              },
+              "Meta": {
+                "TotalPages": 1
+              }
+            }
+            
+
+### Balances [GET /balances]
+
+If an ASPSP has implemented the bulk retrieval endpoints, an AISP may optionally retrieve the account information resources in bulk.
+
+This will retrieve the resources for all authorised accounts linked to the account-request.
+
+
++ Request (application/json)
+        
++ Response 200 (application/json)
+
+
+    + Body
+
+            {
+            "Data": {
+            "Balance": [
+            {
+             "AccountId": "22289",
+                "Amount": {
+                 "Amount": "1230.00",
+                "Currency": "GBP"
+                },
+                "CreditDebitIndicator": "Credit",
+                "Type": "InterimAvailable",
+                "DateTime": "2017-04-05T10:43:07+00:00",
+                "CreditLine": [
+                 {
+                 "Included": true,
+                    "Amount": {
+                      "Amount": "1000.00",
+                     "Currency": "GBP"
+                    },
+                    "Type": "Pre-Agreed"
+                }
+             ]
+            },
+            {
+                "AccountId": "31820",
+                "Amount": {
+                 "Amount": "57.36",
+                 "Currency": "GBP"
+                },
+             "CreditDebitIndicator": "Debit",
+            "Type": "InterimBooked",
+            "DateTime": "2017-05-02T14:22:09+00:00"
+             }
+            ]
+            },
+            "Links": {
+             "Self": "https://api.alphabank.com/open-banking/v3.1/aisp/balances/"
+             },
+            "Meta": {
+                "TotalPages": 1
+            }
+            }
+
+
+
+           
+##  Transactions  [/transactions]
+
+        
+### Account - Transactions [GET /{AccountId}/transactions]
+      The API provides an AISP with the account balance information of a specific account of the PSU.
+
+
++ Parameters
+    + AccountId (string, required) - The Account unique identifier
+    
++ Request (application/json)
+        
++ Response 200 (application/json)
+
+    + Headers
+
+            x-fapi-interaction-id: 005W89EeCC7D8hO_MhO5ye4362873JkkiTPP
+        
+    + Body 
+
+            {
+              "Data": {
+                "Transaction": [
+                  {
+                    "AccountId": "54254553443",
+                    "TransactionId": "123456",
+                    "TransactionReference": "Reference 1",
+                    "Amount": {
+                      "Amount": "1000.00",
+                      "Currency": "GBP"
+                    },
+                    "CreditDebitIndicator": "Credit",
+                    "Status": "Booked",
+                    "BookingDateTime": "2019-03-01T19:00:00",
+                    "ValueDateTime": "2019-03-01T19:00:00",
+                    "TransactionInformation": "Transferred Online",
+                    "BankTransactionCode": {
+                      "Code": "ReceivedCreditTransfer",
+                      "SubCode": "DomesticCreditTransfer"
+                    },
+                    "ProprietaryBankTransactionCode": {
+                      "Code": "Transfer",
+                      "Issuer": "ZigBank"
+                    },
+                    "Balance": {
+                      "Amount": {
+                        "Amount": "200000.00",
+                        "Currency": "GBP"
+                      },
+                      "CreditDebitIndicator": "Credit",
+                      "Type": "InterimAvailable"
+                    }
+                  }
+                ]
+              },
+              "Links": {
+                "Self": "https://api.zigbank.com/open-banking/v3.1/aisp/accounts/22289/transactions/"
+              },
+              "Meta": {
+                "TotalPages": 1,
+                "FirstAvailableDateTime": "2019-03-01T19:00:00",
+                "LastAvailableDateTime": "2019-03-01T19:00:00"
+              }
+            }
+
+
+## Beneficiaries   [/beneficiaries]
+
+        
+### Account - Beneficiaries  [GET /{AccountId}/beneficiaries]
+      The API provides an AISP with the account balance information of a specific account of the PSU.
+
+
++ Parameters
+    + AccountId (string, required) - The Account unique identifier
+    
++ Request (application/json)
+        
++ Response 200 (application/json)
+
+    + Headers
+
+            x-fapi-interaction-id: 005W89EeCC7D8hO_MhO5ye4362873JkkiTPP
+        
+    + Body 
+
+            {
+            "Data": {
+             "Beneficiary": [
+                {
+                "AccountId": "22289",
+                "BeneficiaryId": "Ben1",
+                "Reference": "Towbar Club",
+                 "CreditorAccount": {
+                "SchemeName": "UK.OBIE.SortCodeAccountNumber",
+                "Identification": "80200112345678",
+                "Name": "Mrs Juniper"
+                                    }
+                }
+             ]
+            },
+            "Links": {
+                "Self": "https://api.alphabank.com/open-banking/v3.1/aisp/accounts/22289/beneficiaries/"
+             },
+            "Meta": {
+                "TotalPages": 1
+            }
+            }
+            
